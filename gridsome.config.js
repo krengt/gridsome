@@ -5,8 +5,27 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'Gridsome',
-  plugins: [],
+  siteName: 'Gridsome Sandbox',
   siteUrl: 'https://krengt.github.io',
   pathPrefix: '/gridsome',
+  plugins: [
+    {
+      use: '@gridsome/source-filesystem',
+      options: {
+        baseDir: 'articles',
+        path: '**/*.md',
+        typeName: 'Articles'
+      }
+    }
+  ],
+  templates: {
+    Articles: [
+      {
+        path: (node) => {
+          return `/article/${node.fileInfo.directory}/${node.fileInfo.name}`
+        },
+        component: './src/templates/Article.vue'
+      }
+    ]
+  }
 }
